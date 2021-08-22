@@ -37,13 +37,14 @@ mod_StandardRoll_server <- function(id, Roller){
     output$ModuleUI <- renderUI({
       label <- Roller$label
       
-      tagList(
-        wellPanel(
-          actionButton(ns("btnRoll"), label),
-          actionButton(ns("btnModRoll"), paste(label, "mod")),
-          h1(RollResult())
-        )
-      )
+      btnRoll <- actionButton(ns("btnRoll"), label)
+      if (Roller$modrolls)
+        btnModRoll <- actionButton(ns("btnModRoll"), paste(label, "mod"))
+      else
+        btnModRoll <- NULL
+      Result <- tagList(wellPanel(btnRoll, btnModRoll, h1(RollResult())))
+
+      return(Result)
     })
     
   })
