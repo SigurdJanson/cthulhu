@@ -72,6 +72,16 @@ CthulhuRoller <- R6Class(
       }
       
       return(Result)
+    },
+
+    MaxHardSuccess = function(value) {
+      min(value * 2, dieSides-1)
+    },
+    MaxExtremeSuccess = function(value) {
+      min(value * 5, dieSides-1)
+    },
+    MaxBotch = function(value) {
+      return(ifelse(value < 50, 96, 100)) #TODO ???????????
     }
   )
 )
