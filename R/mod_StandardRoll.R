@@ -40,7 +40,7 @@ mod_StandardRoll_server <- function(id, Roller){
         btnModRoll <- actionButton(ns("btnModRoll"), paste(Roller$Label, "mod"))
       else
         btnModRoll <- NULL
-      Result <- tagList(wellPanel(btnRoll, btnModRoll, h1(RollResult())))
+      Result <- tagList(btnRoll, btnModRoll, h1(RollResult()))
 
       return(Result)
     })
