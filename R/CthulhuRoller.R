@@ -27,6 +27,10 @@ CthulhuRoller <- R6Class(
         stop("Modified die sides cannot be changed after the die has been set.")
       }
     }
+    
+    IsSkillRoller = function() {
+      return(private$dieSides == 100 && private$modsAllowed && ModDieSides == 10)
+    }
   ),
   private = list(
     dieSides = NULL,
@@ -60,16 +64,15 @@ CthulhuRoller <- R6Class(
       Result <- sample.int(private$dieSides, 1)
       
       if (private$modsAllowed && !isFALSE(Modify) && Modify != 0) {
-        First  <- Result %% private$modDieSides
-        Second <- sample.int(private$modDieSides, 1)
-        Result <- Result - First
-        Modifier <- ifelse(Modify > 0, max(First, Second), min(First, Second))
+        ModRolls <- Result %% private$modDieSides
+        ModRolls <- c(ModRolls, sample.int(private$modDieSides, abs(Modify)))
+        Result <- Result - ModRolls[1]
+        Modifier <- ifelse(Modify > 0, max(ModRolls), min(ModRolls))
         Result <- Result + Modifier
       }
       
       return(Result)
     }
-
   )
 )
 
