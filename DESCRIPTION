@@ -9,6 +9,7 @@ Imports:
     golem (>= 0.3.1),
     htmltools,
     processx,
+    R6,
     shiny (>= 1.6.0)
 Encoding: UTF-8
 LazyData: true

@@ -18,22 +18,24 @@ mod_StandardRoll_ui <- function(id){
 #' StandardRoll Server Functions
 #'
 #' @noRd 
-mod_StandardRoll_server <- function(id, die = 100, moddie = 10){
+mod_StandardRoll_server <- function(id, Roller){
+  if (!isTruthy(Roller) || !is.R6(Roller)) stop("Module needs a valid roller")
+  
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     RollResult <- reactiveVal(0)
     
     observeEvent(input$btnRoll, {
-      RollResult(sample.int(100, 1))
+      RollResult(Roller$roll())
     })
     observeEvent(input$btnModRoll, {
-      Result <- (sample.int(10, 1)-1) * 10 + max(sample.int(10, 2))
-      RollResult(Result)
+      #Result <- (sample.int(10, 1)-1) * 10 + max(sample.int(10, 2))
+      RollResult(Roller$roll(+1))
     })
     
     output$ModuleUI <- renderUI({
-      label <- paste0("1d", die)
+      label <- Roller$label
       
       tagList(
         wellPanel(
