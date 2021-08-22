@@ -7,4 +7,7 @@
 app_server <- function( input, output, session ) {
   # Your application server logic 
   
+  
+  mod_StandardRoll_server("Roll100")
+  mod_StandardRoll_server("Roll10")
 }

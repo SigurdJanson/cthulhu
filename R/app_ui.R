@@ -10,7 +10,14 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      h1("Cthulhu")
+      h1("Cthulhu"),
+      
+      mod_StandardRoll_ui("Roll100"),
+      mod_StandardRoll_ui("Roll10"),
+      
+      hr(),
+      a("Webseite mit Basisregeln", target="_blank",
+        href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition")
     )
   )
 }
