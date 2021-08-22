@@ -12,14 +12,14 @@ test_that("Properties are correctly set by constructor", {
   for(i in 1:4) {
     roller <- CthulhuRoller$new(DieList[i], LabelList[i], ModDieList[[i]])
     
-    expect_equal(roller$die, DieList[i])
-    expect_equal(roller$label, LabelList[i])
-    expect_equal(roller$modrolls, ModsAllowed[i])
+    expect_equal(roller$DieSides, DieList[i])
+    expect_equal(roller$Label, LabelList[i])
+    expect_equal(roller$ModsAllowed, ModsAllowed[i])
     
     if (ModsAllowed[i])
-      expect_equal(roller$moddice, ModDieList[[i]])
+      expect_equal(roller$ModDieSides, ModDieList[[i]])
     else
-      expect_null(roller$moddice)
+      expect_null(roller$ModDieSides)
   }
 })
 
@@ -31,7 +31,24 @@ test_that("rolls are within range", {
     roller <- CthulhuRoller$new(TestDice[i], "Test")
     
     for (j in 1:100) {
-      obs <- roller$roll()
+      obs <- roller$Roll()
+      expect_gte(obs, 1)
+      expect_lte(obs, TestDice[i])
+    }
+  }
+})
+
+
+
+test_that("modified rolls are within range", {
+  TestDice <- c(20, 100)
+  Modifiers <- c(2, 10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    
+    for (j in 1:100) {
+      obs <- roller$Roll()
       expect_gte(obs, 1)
       expect_lte(obs, TestDice[i])
     }
