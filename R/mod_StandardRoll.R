@@ -19,7 +19,7 @@ mod_StandardRoll_ui <- function(id){
 #'
 #' @noRd 
 mod_StandardRoll_server <- function(id, Roller){
-  if (!isTruthy(Roller) || !is.R6(Roller)) stop("Module needs a valid roller")
+  if (!isTruthy(Roller) || !R6::is.R6(Roller)) stop("Module needs a valid roller")
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns

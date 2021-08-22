@@ -2,7 +2,7 @@ library(R6)
 
 
 CthulhuRoller <- R6Class(
-  "CthulhuRoll",
+  "CthulhuRoller",
   public = list(
     die = NULL,
     label = NULL,
@@ -13,7 +13,7 @@ CthulhuRoller <- R6Class(
       if (is.na(die) || !is.numeric(die)) stop("A die is missing")
       
       self$die   <- die
-      self$label <- ifelse(is.na(label), paste0("1d", die), label)
+      self$label <- ifelse(is.character(label), label, paste0("1d", die))
       if (is.numeric(moddice) && moddice > 1) {
         self$modrolls <- TRUE
         self$moddice  <- moddice
