@@ -21,13 +21,14 @@ app_server <- function( input, output, session ) {
   mod_StandardRoll_server("Roll3", Roller3)
   
   output$imgLogo <- renderImage({
-    # When input$n is 3, filename is ./images/image3.jpeg
     filename <- normalizePath(
-      file.path('./www', paste0("cthulhu_logo", '.svg')))
-    
-    # Return a list containing the filename and alt text
-    list(src = filename, alt = paste("Cthulhu logo"))
-    
+      file.path('./inst/app/www', paste0("cthulhu_logo", '.svg')))
+    #print(filename)
+    # Return a list containing the file name and alt text
+    list(src = filename, 
+         contentType = "image/svg+xml",
+         width = "50px",
+         alt = paste("Cthulhu logo"))
   }, deleteFile = FALSE)
   
 }
