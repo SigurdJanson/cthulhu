@@ -14,6 +14,7 @@ app_ui <- function(request) {
     # Your application UI logic 
     dashboardPage(skin = "black",
       dashboardHeader(title = "Cthulhu"),
+      #, tags$li(imageOutput("imgLogo"), class = "dropdown")
       dashboardSidebar(disable = TRUE),
       dashboardBody(
         fluidPage(
@@ -29,8 +30,9 @@ app_ui <- function(request) {
               collapsible = TRUE,
               mod_StandardRoll_ui("Roll10")
             ),
-            box(width = 4, background = "black",
-                          imageOutput("imgLogo"))
+            box(width = 4, height = "100%",
+                background = "black",
+                imageOutput("imgLogo"))
           ),
           fluidRow(          
               tabBox(
@@ -40,10 +42,13 @@ app_ui <- function(request) {
                 tabPanel("W6", mod_StandardRoll_ui("Roll6"))
               )
           ),
-
-          hr(),
-          a("Webseite mit Basisregeln", target="_blank",
-            href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition")
+          tags$footer(
+            hr(),
+            a("Webseite mit Basisregeln", target="_blank",
+              href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
+            align = "center"
+          )#footer
+          
         )
       )
     )
