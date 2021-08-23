@@ -5,6 +5,8 @@ library(shinydashboard)
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom shinydashboard dashboardPage dashboardHeader dashboardSidebar dashboardBody
+#' box tabBox
 #' @noRd
 app_ui <- function(request) {
   tagList(
