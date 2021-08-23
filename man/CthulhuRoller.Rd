@@ -2,11 +2,56 @@
 % Please edit documentation in R/CthulhuRoller.R
 \name{CthulhuRoller}
 \alias{CthulhuRoller}
-\title{AddModifier}
+\title{An abstract R6 class representing rolls with a 
+die of a specified number of sides.}
 \description{
-AddModifier
+A roller has a number of die sides and may support modify rolls.
+}
+\examples{
 
-AddModifier
+## ------------------------------------------------
+## Method `CthulhuRoller$Roll`
+## ------------------------------------------------
+
+\dontrun{
+roller = CthulhuRoller(100, "W100", 10)
+print(roller$Roll())
+}
+
+## ------------------------------------------------
+## Method `CthulhuRoller$AddModifier`
+## ------------------------------------------------
+
+\dontrun{
+roller <- CthulhuRoller$new(100, "W100", 10)
+print(roller$AddModifier(12, roller$ModifyType["Bonus"])) 
+}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{ModifyType}}{Enumeration that defines the type of a modifier.
+The `Bonus` is an enhancement; the `Malus` is a risk.}
+
+\item{\code{Label}}{A string that characterices the roller and may be
+used as button label.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{DieSides}}{Sides of the die}
+
+\item{\code{ModsAllowed}}{Does this roller support modify rolls (TRUE/FALSE)?}
+
+\item{\code{ModDieSides}}{The number of sides of a modifier die (readonly)}
+
+\item{\code{IsSkillRoller}}{Does the roller satisfy the characterstics 
+of a skill roll (i.e. 1d100 with modify rolls allowed).
+(readonly)}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -24,17 +69,58 @@ AddModifier
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+dieSides Private property
+
+
+modsAllowed Private property
+
+
+modDieSides Private property
+
+
+Constructor
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$new(dieSides = NA, label = NA, modDieSides = NA)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dieSides}}{Dies sides}
+
+\item{\code{label}}{A label that could qualify as button label
+to initiate this roller.}
+
+\item{\code{modDieSides}}{Sides of a modifier die.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+`invisible(self)`
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Roll"></a>}}
 \if{latex}{\out{\hypertarget{method-Roll}{}}}
 \subsection{Method \code{Roll()}}{
+Roll the roller to get a die roll result.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$Roll()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+The roll (value between 1 and the number 
+of sides of this roller die).
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{\dontrun{
+roller = CthulhuRoller(100, "W100", 10)
+print(roller$Roll())
+}
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -42,6 +128,7 @@ AddModifier
 \if{html}{\out{<a id="method-AddModifier"></a>}}
 \if{latex}{\out{\hypertarget{method-AddModifier}{}}}
 \subsection{Method \code{AddModifier()}}{
+AddModifier
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$AddModifier(Roll, Modifier)}\if{html}{\out{</div>}}
 }
@@ -51,7 +138,7 @@ AddModifier
 \describe{
 \item{\code{Roll}}{The current roll that shall be modified.}
 
-\item{\code{Modifier}}{A value of enum `CthulhuRoller$ModifyType`.}
+\item{\code{Modifier}}{A value of enumeration `CthulhuRoller$ModifyType`.}
 }
 \if{html}{\out{</div>}}
 }
@@ -59,33 +146,81 @@ AddModifier
 The modified roll (value between 1 and the number 
 of sides of this roller die).
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{\dontrun{
+roller <- CthulhuRoller$new(100, "W100", 10)
+print(roller$AddModifier(12, roller$ModifyType["Bonus"])) 
+}
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MaxHardSuccess"></a>}}
 \if{latex}{\out{\hypertarget{method-MaxHardSuccess}{}}}
 \subsection{Method \code{MaxHardSuccess()}}{
+MaxHardSuccess
+Determine the smallest target value required so that a
+roll would be a hard success.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$MaxHardSuccess(value)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A roll result}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Smallest target value required for a hard success
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MaxExtremeSuccess"></a>}}
 \if{latex}{\out{\hypertarget{method-MaxExtremeSuccess}{}}}
 \subsection{Method \code{MaxExtremeSuccess()}}{
+MaxExtremeSuccess
+Determine the smallest target value required so that a
+roll would be an extreme success.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$MaxExtremeSuccess(value)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A roll result}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Smallest target value required for an extreme success
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MaxBotch"></a>}}
 \if{latex}{\out{\hypertarget{method-MaxBotch}{}}}
 \subsection{Method \code{MaxBotch()}}{
+What is the value for a critical failure?
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CthulhuRoller$MaxBotch(value)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{A roll result}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The value characterizing a critical failure.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
