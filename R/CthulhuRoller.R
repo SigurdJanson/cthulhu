@@ -26,7 +26,7 @@ CthulhuRoller <- R6Class(
       } else {
         stop("Modified die sides cannot be changed after the die has been set.")
       }
-    }
+    },
     
     IsSkillRoller = function() {
       return(private$dieSides == 100 && private$modsAllowed && ModDieSides == 10)
@@ -38,7 +38,7 @@ CthulhuRoller <- R6Class(
     modDieSides = NULL
   ),
   public = list(
-
+    ModifyType = c(Bonus = +1, None = 0, Malus = -1),
     Label = NULL, # Button label
     
     initialize = function(dieSides = NA, label = NA, modDieSides = NA) {
@@ -60,18 +60,33 @@ CthulhuRoller <- R6Class(
       }
     },
     
-    Roll = function(Modify = FALSE) {
+    Roll = function() {
       Result <- sample.int(private$dieSides, 1)
       
-      if (private$modsAllowed && !isFALSE(Modify) && Modify != 0) {
-        ModRolls <- Result %% private$modDieSides
-        ModRolls <- c(ModRolls, sample.int(private$modDieSides, abs(Modify)))
-        Result <- Result - ModRolls[1]
-        Modifier <- ifelse(Modify > 0, max(ModRolls), min(ModRolls))
-        Result <- Result + Modifier
-      }
-      
       return(Result)
+    },
+
+    #' @title AddModifier
+    #' @param Roll The current roll that shall be modified.
+    #' @param Modifier A value of enum `CthulhuRoller$ModifyType`.
+    #' @return The modified roll (value between 1 and the number 
+    #' of sides of this roller die).
+    #' @export
+    #'
+    #' @examples
+    AddModifier = function(Roll, Modifier) {
+      if(Roll < 1 || Roll > private$dieSides)
+        stop(paste("Roll is out of range of this roller", self$Label))
+      if (!private$modsAllowed || Modifier == self$ModifyType["None"])
+        return(Roll)
+      
+      ModRolls <- Roll %% private$modDieSides
+      if (ModRolls == 0) ModRolls <- private$modDieSides
+      Roll <- Roll - ModRolls
+
+      ModRolls <- c(ModRolls, sample.int(private$modDieSides, 1))
+      Modifier <- ifelse(Modifier > 0, max(ModRolls), min(ModRolls))
+      Roll <- Roll + Modifier
     },
 
     MaxHardSuccess = function(value) {

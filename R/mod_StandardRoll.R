@@ -30,17 +30,17 @@ mod_StandardRoll_server <- function(id, Roller){
       RollResult(Roller$Roll())
     })
     observeEvent(input$btnBonusRoll, {
-      RollResult(Roller$Roll(+1))
+      RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Bonus"]))
     })
     observeEvent(input$btnMalusRoll, {
-      RollResult(Roller$Roll(-1))
+      RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Malus"]))
     })
     
     output$ModuleUI <- renderUI({
       btnRoll <- actionButton(ns("btnRoll"), Roller$Label)
       if (Roller$ModsAllowed) {
-        btnBonusRoll <- actionButton(ns("btnBonusRoll"), paste(Roller$Label, "max"))
-        btnMalusRoll <- actionButton(ns("btnMalusRoll"), paste(Roller$Label, "min"))
+        btnBonusRoll <- actionButton(ns("btnBonusRoll"), paste("Bonus Roll"))
+        btnMalusRoll <- actionButton(ns("btnMalusRoll"), paste("Malus Roll"))
       }
       else
         btnBonusRoll <- btnMalusRoll <- NULL

@@ -1,6 +1,3 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
 
 
 test_that("Properties are correctly set by constructor", {
@@ -40,17 +37,47 @@ test_that("rolls are within range", {
 
 
 
-test_that("modified rolls are within range", {
+test_that("un-modified bonus rolls do not change", {
   TestDice <- c(20, 100)
   Modifiers <- c(2, 10)
   
   for(i in 1:length(TestDice)) {
     roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
     
-    for (j in 1:100) {
-      obs <- roller$Roll()
-      expect_gte(obs, 1)
-      expect_lte(obs, TestDice[i])
+    exp <- roller$Roll()
+    obs <- roller$AddModifier(exp, roller$ModifyType["None"])
+    expect_equal(obs, exp)
+  }
+})
+
+
+
+test_that("modified bonus rolls are within range", {
+  TestDice <- c(20, 100)
+  Modifiers <- c(2, 10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    
+    for (j in 1:TestDice[i]) {
+      obs <- roller$AddModifier(j, roller$ModifyType["Bonus"])
+      expect_gte(obs, 1, label = paste("Roll =", j))
+      expect_lte(obs, TestDice[i], label = paste("Roll =", j))
+    }
+  }
+})
+
+test_that("modified malus rolls are within range", {
+  TestDice <- c(20, 100)
+  Modifiers <- c(2, 10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    
+    for (j in 1:TestDice[i]) {
+      obs <- roller$AddModifier(j, roller$ModifyType["Malus"])
+      expect_gte(obs, 1, label = paste("Roll =", j))
+      expect_lte(obs, TestDice[i], label = paste("Roll =", j))
     }
   }
 })
