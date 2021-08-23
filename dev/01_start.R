@@ -21,11 +21,11 @@
 golem::fill_desc(
   pkg_name = "Cthulhu", # The Name of the package containing the App 
   pkg_title = "Cthulhu Rolling App", # The Title of the package containing the App 
-  pkg_description = "Supports dice rolls in Cthulhu role playing sessions", # The Description of the package containing the App 
+  pkg_description = "Supports dice rolls in Cthulhu role playing sessions.", # The Description of the package containing the App 
   author_first_name = "Jan", # Your First Name
   author_last_name = "Seifert", # Your Last Name
   author_email = "AUTHOR@MAIL.COM", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional) 
+  repo_url = "https://github.com/SigurdJanson/cthulhu" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----

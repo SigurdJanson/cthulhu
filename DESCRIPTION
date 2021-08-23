@@ -1,6 +1,6 @@
 Package: Cthulhu
-Title: Cthulhu Roll App
-Version: 0.0.0.9000
+Title: Cthulhu Rolling App
+Version: 0.0.0.9900
 Authors@R: person('Jan', 'Seifert', email = 'AUTHOR@MAIL.COM', role = c('cre', 'aut'))
 Description: Supports dice rolls in Cthulhu role playing sessions.
 License: MIT + file LICENSE
@@ -21,3 +21,5 @@ Suggests:
     rlang
 Config/testthat/edition: 3
 Language: en-US
+URL: https://github.com/SigurdJanson/cthulhu
+BugReports: https://github.com/SigurdJanson/cthulhu/issues
