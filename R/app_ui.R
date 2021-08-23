@@ -23,16 +23,16 @@ app_ui <- function(request) {
           fluidRow(
             box(
               title = "Fertigkeiten", solidHeader = TRUE, #status = "primary", 
-              width = 4, background = "black",
+              width = 4, height = "220px", background = "black",
               mod_StandardRoll_ui("Roll100")
             ),
             box(
               title = "W10", solidHeader = TRUE,
-              width = 4, background = "black",
-              collapsible = TRUE,
+              width = 4, height = "220px", background = "black",
+              collapsible = FALSE,
               mod_StandardRoll_ui("Roll10")
             ),
-            box(width = 4, height = "100%",
+            box(width = 4, height = "220px",
                 background = "black",
                 imageOutput("imgLogo"))
           ),

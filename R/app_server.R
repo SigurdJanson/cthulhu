@@ -27,7 +27,7 @@ app_server <- function( input, output, session ) {
     # Return a list containing the file name and alt text
     list(src = filename, 
          contentType = "image/svg+xml",
-         width = "50px",
+         height = "200px",
          alt = paste("Cthulhu logo"))
   }, deleteFile = FALSE)
   
