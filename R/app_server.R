@@ -49,4 +49,13 @@ app_server <- function( input, output, session ) {
          alt = paste("Cthulhu logo"))
   }, deleteFile = FALSE)
   
+  output$RollLog <- renderUI(
+    HTML(
+      paste(
+        c("<pre>", "capture.output(print(summary(m0)))", "</pre>"),
+        collapse = "<br>"
+      )
+    )  
+  )
+  
 }

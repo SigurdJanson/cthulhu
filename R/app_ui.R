@@ -57,6 +57,12 @@ app_ui <- function(request) {
                   )
               )
           ),
+          fluidRow(
+              box(title = i18n$t("Log"), solidHeader = TRUE,
+                  width = 12, height = "400px", background = "black",
+                  uiOutput("RollLog")
+              )
+          ),
           tags$footer(
             hr(),
             a(i18n$t("WWW Site with Core Rules"), 
