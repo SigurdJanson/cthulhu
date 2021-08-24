@@ -1,0 +1,40 @@
+{
+  "cultural_date_format": "%d-%m-%Y",
+  "languages": ["en", "de"],
+  "translation": [
+    {"en": "Bonus Roll", "de": "Bonuswurf"},
+    {"en": "Malus Roll", "de": "Maluswurf"},
+    {
+      "en": "Select language",
+      "de": "Sprache wählen"
+    },
+    {
+      "en": "Skills",
+      "de": "Fertigkeiten"
+    },
+    {
+      "en": "D3",
+      "de": "W3"
+    },
+    {
+      "en": "D4",
+      "de": "W4"
+    },
+    {
+      "en": "D6",
+      "de": "W6"
+    },
+    {
+      "en": "D10",
+      "de": "W10"
+    },
+    {
+      "en": "D100",
+      "de": "W100"
+    },
+    {
+      "en": "WWW Site with Core Rules",
+      "de": "Webseite mit Basisregeln"
+    }
+  ]
+}

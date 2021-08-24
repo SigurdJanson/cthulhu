@@ -18,7 +18,7 @@ mod_StandardRoll_ui <- function(id){
 #' StandardRoll Server Functions
 #'
 #' @noRd 
-mod_StandardRoll_server <- function(id, Roller){
+mod_StandardRoll_server <- function(id, Roller, i18n){
   if (!isTruthy(Roller) || !R6::is.R6(Roller)) stop("Module needs a valid roller")
   
   moduleServer( id, function(input, output, session){
@@ -37,10 +37,10 @@ mod_StandardRoll_server <- function(id, Roller){
     })
     
     output$ModuleUI <- renderUI({
-      btnRoll <- actionButton(ns("btnRoll"), Roller$Label)
+      btnRoll <- actionButton(ns("btnRoll"), i18n$t(Roller$Label))
       if (Roller$ModsAllowed) {
-        btnBonusRoll <- actionButton(ns("btnBonusRoll"), paste("Bonus Roll"))
-        btnMalusRoll <- actionButton(ns("btnMalusRoll"), paste("Malus Roll"))
+        btnBonusRoll <- actionButton(ns("btnBonusRoll"), i18n$t("Bonus Roll"))
+        btnMalusRoll <- actionButton(ns("btnMalusRoll"), i18n$t("Malus Roll"))
       }
       else
         btnBonusRoll <- btnMalusRoll <- NULL

@@ -1,4 +1,4 @@
-library(shinydashboard)
+#library(shinydashboard)
 
 #' The application User-Interface
 #' 
@@ -9,6 +9,10 @@ library(shinydashboard)
 #' box tabBox
 #' @noRd
 app_ui <- function(request) {
+  # calling the translator sent as a golem option
+  i18n <- golem::get_golem_options(which = "translator")
+  i18n$set_translation_language("de")
+  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -22,12 +26,13 @@ app_ui <- function(request) {
         fluidPage(
           fluidRow(
             box(
-              title = "Fertigkeiten", solidHeader = TRUE, #status = "primary", 
+              title = paste0(i18n$t("Skill"), " (", i18n$t("D100"), ")"), 
+              solidHeader = TRUE,
               width = 4, height = "220px", background = "black",
               mod_StandardRoll_ui("Roll100")
             ),
             box(
-              title = "W10", solidHeader = TRUE,
+              title = i18n$t("D10"), solidHeader = TRUE,
               width = 4, height = "220px", background = "black",
               collapsible = FALSE,
               mod_StandardRoll_ui("Roll10")
@@ -38,15 +43,24 @@ app_ui <- function(request) {
           ),
           fluidRow(          
               tabBox(
-                width = 12,
-                tabPanel("W3", mod_StandardRoll_ui("Roll3")),
-                tabPanel("W4", mod_StandardRoll_ui("Roll4")),
-                tabPanel("W6", mod_StandardRoll_ui("Roll6"))
+                width = 6,
+                tabPanel(i18n$t("D3"), mod_StandardRoll_ui("Roll3")),
+                tabPanel(i18n$t("D4"), mod_StandardRoll_ui("Roll4")),
+                tabPanel(i18n$t("D6"), mod_StandardRoll_ui("Roll6"))
+              ),
+              box(width=6,
+                  radioButtons(
+                    inputId = "lang",
+                    label = i18n$t("Select language"),
+                    inline = TRUE,
+                    choices = i18n$get_languages()
+                  )
               )
           ),
           tags$footer(
             hr(),
-            a("Webseite mit Basisregeln", target="_blank",
+            a(i18n$t("WWW Site with Core Rules"), 
+              target="_blank",
               href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
             align = "center"
           )#footer
