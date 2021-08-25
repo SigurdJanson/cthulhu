@@ -11,7 +11,7 @@
 app_ui <- function(request) {
   # calling the translator sent as a golem option
   i18n <- golem::get_golem_options(which = "translator")
-  i18n$set_translation_language("de")
+  i18n$set_translation_language("en")
   
   tagList(
     # Leave this function for adding external resources
@@ -23,6 +23,7 @@ app_ui <- function(request) {
       #, tags$li(imageOutput("imgLogo"), class = "dropdown")
       dashboardSidebar(disable = TRUE),
       dashboardBody(
+        useShinyjs(),
         fluidPage(
           fluidRow(
             box(
@@ -43,23 +44,16 @@ app_ui <- function(request) {
           ),
           fluidRow(          
               tabBox(
-                width = 6,
+                width = 12,
                 tabPanel(i18n$t("D3"), mod_StandardRoll_ui("Roll3")),
                 tabPanel(i18n$t("D4"), mod_StandardRoll_ui("Roll4")),
                 tabPanel(i18n$t("D6"), mod_StandardRoll_ui("Roll6"))
-              ),
-              box(width=6,
-                  radioButtons(
-                    inputId = "lang",
-                    label = i18n$t("Select language"),
-                    inline = TRUE,
-                    choices = i18n$get_languages()
-                  )
               )
           ),
           fluidRow(
               box(title = i18n$t("Log"), solidHeader = TRUE,
-                  width = 12, height = "400px", background = "black",
+                  collapsible = TRUE,
+                  width = 12, background = "black",
                   uiOutput("RollLog")
               )
           ),
@@ -68,6 +62,12 @@ app_ui <- function(request) {
             a(i18n$t("WWW Site with Core Rules"), 
               target="_blank",
               href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
+            radioButtons(
+              inputId = "lang",
+              label = i18n$t("Select language"),
+              inline = TRUE,
+              choices = i18n$get_languages()
+            ),
             align = "center"
           )#footer
           

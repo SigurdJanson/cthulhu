@@ -1,3 +1,5 @@
+library(shinyjs)
+
 #' StandardRoll UI Function
 #'
 #' @description Provides a tile for default rolls, incl. "Fertigkeiten" and other
@@ -10,6 +12,7 @@
 #' @importFrom shiny NS tagList 
 mod_StandardRoll_ui <- function(id){
   ns <- NS(id)
+  
   tagList(
     uiOutput(ns("ModuleUI"))
   )
@@ -19,7 +22,8 @@ mod_StandardRoll_ui <- function(id){
 #'
 #' @noRd 
 mod_StandardRoll_server <- function(id, Roller, i18n){
-  if (!isTruthy(Roller) || !R6::is.R6(Roller)) stop("Module needs a valid roller")
+  if (!isTruthy(Roller) || !R6::is.R6(Roller)) 
+    stop("Module needs a valid roller")
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -38,9 +42,16 @@ mod_StandardRoll_server <- function(id, Roller, i18n){
     
     output$ModuleUI <- renderUI({
       btnRoll <- actionButton(ns("btnRoll"), i18n$t(Roller$Label))
+      
       if (Roller$ModsAllowed) {
-        btnBonusRoll <- actionButton(ns("btnBonusRoll"), i18n$t("Bonus Roll"))
-        btnMalusRoll <- actionButton(ns("btnMalusRoll"), i18n$t("Malus Roll"))
+        if (RollResult() < 1 || RollResult() > Roller$DieSides || !isTruthy(RollResult())) {
+          btnBonusRoll <- shinyjs::disabled(actionButton(ns("btnBonusRoll"), i18n$t("Bonus Roll")))
+          btnMalusRoll <- shinyjs::disabled(actionButton(ns("btnMalusRoll"), i18n$t("Malus Roll")))
+        } else {
+          btnBonusRoll <- actionButton(ns("btnBonusRoll"), i18n$t("Bonus Roll"))
+          btnMalusRoll <- actionButton(ns("btnMalusRoll"), i18n$t("Malus Roll"))
+          
+        }
       }
       else
         btnBonusRoll <- btnMalusRoll <- NULL
