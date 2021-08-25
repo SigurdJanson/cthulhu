@@ -10,7 +10,7 @@ app_server <- function( input, output, session ) {
   
   # calling the translator sent as a golem option
   i18n <- golem::get_golem_options(which = "translator")
-  i18n$set_translation_language("de")
+  i18n$set_translation_language("en")
   
   # keep track of language object as a reactive
   i18n_r <- reactive({
@@ -51,8 +51,10 @@ app_server <- function( input, output, session ) {
   
   output$RollLog <- renderUI(
     HTML(
-      paste(
-        c("<pre>", "capture.output(print(summary(m0)))", "</pre>"),
+      paste0(
+        c("<pre style=\"height = \"400px\"\">", 
+          "capture.output(print(summary(m0)))", 
+          "</pre>"),
         collapse = "<br>"
       )
     )  
