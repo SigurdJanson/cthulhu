@@ -50,6 +50,9 @@ CthulhuRoller <- R6Class(
     modsAllowed = FALSE, # allows modification rolls
     #' @description modDieSides Private property 
     modDieSides = NULL
+    #' #' @description 
+    #' logger = NULL
+    
   ),
   public = list(
     #' @field ModifyType Enumeration that defines the type of a modifier.
@@ -87,6 +90,21 @@ CthulhuRoller <- R6Class(
       return(invisible(self))
     },
     
+    # SetLogger = function(logObject) {
+    #   if (is.null(logObject)) {
+    #     private$logger = NULL
+    #     return()
+    #   }
+    #   if (!isTruthy(logObject) || !R6::is.R6(logObject)) 
+    #     stop("Module needs a valid logger")
+    #   if (!("RollLogger" %in% class(logObject)))
+    #     stop("Given class is not a roll logger")
+    #   
+    #   private$logger <- logObject
+    #   
+    #   return(invisible(self))
+    # },
+    
     #' @description Roll the roller to get a die roll result.
     #' @return The roll (value between 1 and the number 
     #' of sides of this roller die).
@@ -97,6 +115,9 @@ CthulhuRoller <- R6Class(
     #' }
     Roll = function() {
       Result <- sample.int(private$dieSides, 1)
+      
+      # if (!is.null(private$logger)) 
+      #   private$logger$Log(paste0("Roll: ", self$Label, " -> ", Result))
       
       return(Result)
     },
@@ -117,6 +138,8 @@ CthulhuRoller <- R6Class(
       if (!private$modsAllowed || Modifier == self$ModifyType["None"])
         return(Roll)
       
+      OldRoll <- Roll
+      
       ModRolls <- Roll %% private$modDieSides
       if (ModRolls == 0) ModRolls <- private$modDieSides
       Roll <- Roll - ModRolls
@@ -124,6 +147,14 @@ CthulhuRoller <- R6Class(
       ModRolls <- c(ModRolls, sample.int(private$modDieSides, 1))
       Modifier <- ifelse(Modifier > 0, max(ModRolls), min(ModRolls))
       Roll <- Roll + Modifier
+      
+      # if (!is.null(private$logger))
+      #   if(OldRoll == Roll)
+      #     private$logger$Log(sprintf("Modify roll - no change", self$Label, Modifier, Roll))
+      #   else
+      #     private$logger$Log(sprintf("Modify roll %s by % d => %d", self$Label, Modifier, Roll))
+      
+      return(Roll)
     },
 
     #' @description MaxHardSuccess

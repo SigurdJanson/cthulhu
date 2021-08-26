@@ -21,17 +21,22 @@ mod_StandardRoll_ui <- function(id){
 #' StandardRoll Server Functions
 #'
 #' @noRd 
-mod_StandardRoll_server <- function(id, Roller, i18n){
+mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
   if (!isTruthy(Roller) || !R6::is.R6(Roller)) 
     stop("Module needs a valid roller")
   
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    NotifyStateChange <- reactiveVal(0)
+    
     RollResult <- reactiveVal(0)
     
     observeEvent(input$btnRoll, {
       RollResult(Roller$Roll())
+      
+      Logger$Log(paste0(RollResult()))
+      NotifyStateChange(NotifyStateChange()+1)
     })
     observeEvent(input$btnBonusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Bonus"]))
@@ -60,6 +65,7 @@ mod_StandardRoll_server <- function(id, Roller, i18n){
       return(Result)
     })
     
+    return(NotifyStateChange)
   })
 }
     

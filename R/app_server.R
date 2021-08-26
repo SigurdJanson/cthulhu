@@ -1,5 +1,3 @@
-#library(shiny.i18n)
-
 #' The application server-side
 #' 
 #' @param input,output,session Internal parameters for {shiny}. 
@@ -16,15 +14,19 @@ app_server <- function( input, output, session ) {
   i18n_r <- reactive({
     i18n
   })
-  
   # change language
   observeEvent(input$lang, {
     shiny.i18n::update_lang(session, input$lang)
     i18n_r()$set_translation_language(input$lang)
   })
-  
+
+  # Logging
+  Logger <- RollLogger$new()
+
+  # Roller modules
   Roller100 <- CthulhuRoller$new(100, "D100", 10)
-  mod_StandardRoll_server("Roll100", Roller100, i18n)
+  # Roller100$SetLogger(Logger)
+  OnRoll100 <- mod_StandardRoll_server("Roll100", Roller100, i18n, Logger)
   
   Roller10 <- CthulhuRoller$new(10, "D10")
   mod_StandardRoll_server("Roll10", Roller10, i18n)
@@ -49,15 +51,28 @@ app_server <- function( input, output, session ) {
          alt = paste("Cthulhu logo"))
   }, deleteFile = FALSE)
   
-  output$RollLog <- renderUI(
+  
+  
+  
+  ##OnNotifyRoll <- reactive({Logger$onModify})
+  #Logger$NotifyStateChange <- OnNotifyRoll
+  
+  output$RollLog <- renderUI({
+    req(OnRoll100()) 
+    print(Logger$AsHtml())
+    
+    Style <- c("height: 400px", 
+               "background:darkgrey")
+    Style <- paste0(Style, collapse = ";")
+    
     HTML(
       paste0(
-        c("<pre style=\"height: 400px\">", 
-          "capture.output(print(summary(m0)))", 
+        c("<pre style=\"", Style, "\">", 
+          Logger$AsHtml(), 
           "</pre>"),
-        collapse = "<br>"
+        collapse = ""
       )
     )
-  )
+  })
   
 }

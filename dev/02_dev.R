@@ -19,7 +19,7 @@ usethis::use_package( "shinyjs" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "StandardRoll" ) # Name of the module
+golem::add_module( name = "RollLogger" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
@@ -38,7 +38,7 @@ usethis::use_data_raw( name = "my_dataset", open = FALSE )
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test( "RollerClass" )
+usethis::use_test( "RollLogger" )
 
 # Documentation
 
