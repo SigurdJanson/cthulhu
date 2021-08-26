@@ -58,7 +58,7 @@ app_server <- function( input, output, session ) {
   
   output$RollLog <- renderUI({
     req(OnRoll100(), OnRoll10(), OnRoll6(), OnRoll4(), OnRoll3())
-    print(Logger$AsHtml())
+    #-print(Logger$AsHtml())
     
     Style <- c("height: 400px", 
                "background:darkgrey")

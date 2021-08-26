@@ -23,7 +23,7 @@ A roller has a number of die sides and may support modify rolls.
 \subsection{Method \code{new()}}{
 Constructor
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{RollLogger$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{RollLogger$new(MaxEntries = 25)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -56,7 +56,7 @@ to initiate this roller.}
 \if{latex}{\out{\hypertarget{method-AsHtml}{}}}
 \subsection{Method \code{AsHtml()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{RollLogger$AsHtml()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{RollLogger$AsHtml(Reverse = TRUE)}\if{html}{\out{</div>}}
 }
 
 }
