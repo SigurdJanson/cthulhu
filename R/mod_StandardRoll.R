@@ -35,14 +35,20 @@ mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
     observeEvent(input$btnRoll, {
       RollResult(Roller$Roll())
       
-      Logger$Log(paste0(RollResult()))
+      Logger$Log(paste0(sprintf("Roll %s: %d", Roller$Label, RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
     observeEvent(input$btnBonusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Bonus"]))
+
+      Logger$Log(paste0(sprintf("Modified %s: %d", Roller$Label, RollResult())))
+      NotifyStateChange(NotifyStateChange()+1)
     })
     observeEvent(input$btnMalusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Malus"]))
+    
+      Logger$Log(paste0(sprintf("Modified %s: %d", Roller$Label, RollResult())))
+      NotifyStateChange(NotifyStateChange()+1)
     })
     
     output$ModuleUI <- renderUI({

@@ -75,9 +75,7 @@ dieSides Private property
 modsAllowed Private property
 
 
-modDieSides Private property 
-#' @description 
-logger = NULL
+modDieSides Private property
 
 
 Constructor

@@ -25,7 +25,8 @@ RollLogger <- R6Class(
     },
     
     Log = function(ToLog) {
-      # ToLog is a string provided by a CthulhuRoller class that represents the last roll
+      # ToLog is a string that represents 
+      # the last roll
       if (!is.character(ToLog)) stop("Invalid logging string")
         
       private$log <- c(private$log, ToLog)

@@ -25,20 +25,19 @@ app_server <- function( input, output, session ) {
 
   # Roller modules
   Roller100 <- CthulhuRoller$new(100, "D100", 10)
-  # Roller100$SetLogger(Logger)
   OnRoll100 <- mod_StandardRoll_server("Roll100", Roller100, i18n, Logger)
   
   Roller10 <- CthulhuRoller$new(10, "D10")
-  mod_StandardRoll_server("Roll10", Roller10, i18n)
+  OnRoll10 <- mod_StandardRoll_server("Roll10", Roller10, i18n, Logger)
   
   Roller6 <- CthulhuRoller$new(6, "D6")
-  mod_StandardRoll_server("Roll6", Roller6, i18n)
+  OnRoll6 <- mod_StandardRoll_server("Roll6", Roller6, i18n, Logger)
   
   Roller4 <- CthulhuRoller$new(4, "D4")
-  mod_StandardRoll_server("Roll4", Roller4, i18n)
+  OnRoll4 <- mod_StandardRoll_server("Roll4", Roller4, i18n, Logger)
 
   Roller3 <- CthulhuRoller$new(3, "D3")
-  mod_StandardRoll_server("Roll3", Roller3, i18n)
+  OnRoll3 <- mod_StandardRoll_server("Roll3", Roller3, i18n, Logger)
   
   output$imgLogo <- renderImage({
     filename <- normalizePath(
@@ -58,7 +57,7 @@ app_server <- function( input, output, session ) {
   #Logger$NotifyStateChange <- OnNotifyRoll
   
   output$RollLog <- renderUI({
-    req(OnRoll100()) 
+    req(OnRoll100(), OnRoll10(), OnRoll6(), OnRoll4(), OnRoll3())
     print(Logger$AsHtml())
     
     Style <- c("height: 400px", 
