@@ -52,12 +52,12 @@ app_server <- function( input, output, session ) {
   output$RollLog <- renderUI(
     HTML(
       paste0(
-        c("<pre style=\"height = \"400px\"\">", 
+        c("<pre style=\"height: 400px\">", 
           "capture.output(print(summary(m0)))", 
           "</pre>"),
         collapse = "<br>"
       )
-    )  
+    )
   )
   
 }
