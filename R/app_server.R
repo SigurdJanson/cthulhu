@@ -61,7 +61,7 @@ app_server <- function( input, output, session ) {
     #-print(Logger$AsHtml())
     
     Style <- c("height: 400px", 
-               "background:darkgrey")
+               "background:#0C090A", "color:white")
     Style <- paste0(Style, collapse = ";")
     
     HTML(
