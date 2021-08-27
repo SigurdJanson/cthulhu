@@ -28,28 +28,34 @@ mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
+    # Identify if there is an icon available for the module's die
     ButtonIcons <- c(d2 = "dice-two", d3 = "dice-three", 
                      d4 = "dice-four", d5 = "dice-five", d6 = "dice-six", 
                      d20 = "dice-d20", d100 = "octopus-deploy")
     myIcon <- ButtonIcons[paste0("d", Roller$DieSides)]
     myIcon <- ifelse(is.null(myIcon), "", myIcon)
-        
+    
+    # Change this value to notify the module caller of a change
     NotifyStateChange <- reactiveVal(0)
     
+    # The value that contains the most recent roll
     RollResult <- reactiveVal(0)
     
+    # Roll the dice
     observeEvent(input$btnRoll, {
       RollResult(Roller$Roll())
       
       Logger$Log(paste0(sprintf("Roll %s: %d", Roller$Label, RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
+    # Modify last roll by bonus roll
     observeEvent(input$btnBonusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Bonus"]))
 
       Logger$Log(paste0(sprintf("Modified %s: %d", Roller$Label, RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
+    # Modify last roll by malus roll
     observeEvent(input$btnMalusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Malus"]))
     
@@ -57,8 +63,8 @@ mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
       NotifyStateChange(NotifyStateChange()+1)
     })
     
+    # Display the whole thing: buttons and roll result
     output$ModuleUI <- renderUI({
-      print(myIcon)
       btnRoll <- actionButton(ns("btnRoll"), 
                               i18n$t(Roller$Label),
                               icon(myIcon))
@@ -86,6 +92,7 @@ mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
       return(Result)
     })
     
+    # Inform caller of a change
     return(NotifyStateChange)
   })
 }
