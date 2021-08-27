@@ -32,3 +32,6 @@ run:
 library(Cthulhu)
 #TODO: how to run it
 ```
+
+![Screenshot of the Cthulhu dice
+app](man/figures/cthulhu_app_screenhot.jpg)
