@@ -8,14 +8,16 @@ body {
     background-position: center !important;
     background-attachment: fixed !important;
     background-origin: content-box !important;
-    background-size: contain !important;
+    background-size: cover !important;
 }
 
 
 .box, .box-header {
     background-color: rgba(0, 0, 0, 0.8);
-    color:white;
+    color:rgb(171, 228, 182);
 }
+
+
 
 .wrapper {
     background-color:black !important;
@@ -30,6 +32,7 @@ body {
 footer {
     position:fixed;
     bottom: 0;
+    left:0;
     width: 100%;
     background-color: darkslategray !important;
 }
