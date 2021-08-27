@@ -48,7 +48,7 @@ app_server <- function( input, output, session ) {
          contentType = "image/svg+xml",
          height = "200px",
          alt = paste("Cthulhu logo"))
-  }, deleteFile = FALSE)
+  }, deleteFile = FALSE, outputArgs = list(inline = TRUE))
   
   
   
@@ -60,8 +60,9 @@ app_server <- function( input, output, session ) {
     req(OnRoll100(), OnRoll10(), OnRoll6(), OnRoll4(), OnRoll3())
     #-print(Logger$AsHtml())
     
-    Style <- c("height: 400px", 
-               "background:#0C090A", "color:white")
+    Style <- c("height:200px", 
+               "background:#0C090A", "color:white",
+               "opacity:0.5")
     Style <- paste0(Style, collapse = ";")
     
     HTML(

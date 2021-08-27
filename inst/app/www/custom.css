@@ -1,0 +1,36 @@
+
+
+body {
+    /*https://2.bp.blogspot.com/-bPIkBuAXsbY/XR76sW9L4RI/AAAAAAAAELA/UcveontcdhwsrsHt9V5IqpYe6tMp3QmlACKgBGAs/w919/fantasy-monster-cthulhu-uhdpaper.com-4K-158.jpg*/
+    background-image: url(background.jpg) !important;
+    background-repeat: no-repeat !important;
+    background-color: darkslategray !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-origin: content-box !important;
+    background-size: contain !important;
+}
+
+
+.box, .box-header {
+    background-color: rgba(0, 0, 0, 0.8);
+    color:white;
+}
+
+.wrapper {
+    background-color:black !important;
+    opacity: 1;
+    display:contents;
+}
+.content-wrapper {
+    opacity: 1;
+    display:contents;
+}
+
+footer {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: darkslategray !important;
+}
+

@@ -19,55 +19,66 @@ app_ui <- function(request) {
     
     # Your application UI logic 
     dashboardPage(skin = "black",
-      dashboardHeader(title = "Cthulhu"),
+      dashboardHeader(title = "Cthulhu", disable = TRUE),
       #, tags$li(imageOutput("imgLogo"), class = "dropdown")
       dashboardSidebar(disable = TRUE),
       dashboardBody(
+        tags$head(
+          tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+        ),
         useShinyjs(),
+        # tags$img(
+        #   src = "", 
+        #   #normalizePath(file.path('./inst/app/www', paste0("cthulhu_logo", '.svg'))),
+        #   style = 'position: absolute'
+        # ),
         fluidPage(
           fluidRow(
             box(
               title = paste0(i18n$t("Skill"), " (", i18n$t("D100"), ")"), 
               solidHeader = TRUE,
-              width = 4, height = "220px", background = "black",
+              width = 4, height = "220px", #background = "black",
               mod_StandardRoll_ui("Roll100")
             ),
+            # box(width = 4, height = "220px",
+            #     #background = "black",
+            #     imageOutput("imgLogo"))
+            box(title = i18n$t("D3"), solidHeader = TRUE, 
+                width = 2, height = "220px",
+                mod_StandardRoll_ui("Roll3")),
+            box(title = i18n$t("D4"), solidHeader = TRUE,
+                width = 2, height = "220px",
+                mod_StandardRoll_ui("Roll4")),
+            box(title = i18n$t("D6"), solidHeader = TRUE, 
+                width = 2, height = "220px",
+                mod_StandardRoll_ui("Roll6")),
             box(
               title = i18n$t("D10"), solidHeader = TRUE,
-              width = 4, height = "220px", background = "black",
+              width = 2, height = "220px",
               collapsible = FALSE,
               mod_StandardRoll_ui("Roll10")
-            ),
-            box(width = 4, height = "220px",
-                background = "black",
-                imageOutput("imgLogo"))
-          ),
-          fluidRow(          
-              tabBox(
-                width = 12,
-                tabPanel(i18n$t("D3"), mod_StandardRoll_ui("Roll3")),
-                tabPanel(i18n$t("D4"), mod_StandardRoll_ui("Roll4")),
-                tabPanel(i18n$t("D6"), mod_StandardRoll_ui("Roll6"))
-              )
+            )
           ),
           fluidRow(
               box(title = i18n$t("Log"), solidHeader = TRUE,
                   collapsible = TRUE,
-                  width = 12, background = "black",
+                  width = 12,
                   uiOutput("RollLog")
               )
           ),
           tags$footer(
-            hr(),
-            a(i18n$t("WWW Site with Core Rules"), 
-              target="_blank",
-              href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
-            radioButtons(
-              inputId = "lang",
-              label = i18n$t("Select language"),
-              inline = TRUE,
-              choices = i18n$get_languages()
+            div(
+              a(i18n$t("WWW Site with Core Rules"), 
+                target="_blank",
+                href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
             ),
+            div(
+              radioButtons(
+                inputId = "lang",
+                label = i18n$t("Select language"),
+                inline = TRUE,
+                choices = i18n$get_languages()
+              )            ),
             align = "center"
           )#footer
           
