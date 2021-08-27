@@ -1,37 +1,40 @@
 library(R6)
 
 
-#' An abstract R6 class representing rolls with a 
-#' die of a specified number of sides.
-#' @description
-#' A roller has a number of die sides and may support modify rolls.
+#' An abstract R6 class providing means to log strings in a 
+#' list of entries.
 RollLogger <- R6Class(
   "RollLogger",
   active = list( ##
+    
+    #' @field Length Current length of the log
     Length = function(value) {
       if (!is.null(value)) stop("Length cannot be set")
       return(length(log))
     }
   ),
   private = list( ##
+    #' @description log The logged list
     log = NULL, # list of logged entries
+    #' @description maxEntries Maximum allowed entries
     maxEntries = NULL
   ),
   public = list( ##
     #' @description Constructor
-    #' @param dieSides Dies sides
-    #' @param label A label that could qualify as button label
-    #' to initiate this roller.
-    #' @param modDieSides Sides of a modifier die.
+    #' @param MaxEntries Maximum allowed entries; default is 25
     #' @return `invisible(self)`
     initialize = function(MaxEntries = 25) {
       private$log = list()
       private$maxEntries <- MaxEntries
+      return(invisible(self))
     },
     
+    
+    #' @description Stores strings in the log.
+    #' @param ToLog a string that represents the last roll or any other event.
+    #' @return  `invisible(self)`
     Log = function(ToLog) {
-      # ToLog is a string that represents 
-      # the last roll
+      # 
       if (!is.character(ToLog)) stop("Invalid logging string")
       
       if (length(private$log) == private$maxEntries)
@@ -41,6 +44,10 @@ RollLogger <- R6Class(
       return(invisible(self))
     },
     
+    
+    #' @description Returns the log content as HTML string
+    #' @param Reverse if `TRUE` the recent entries are shown on top.
+    #' @return HTML output
     AsHtml = function(Reverse = TRUE) {
       if (Reverse)
         paste0(rev(private$log), collapse="<br/>")
@@ -48,9 +55,14 @@ RollLogger <- R6Class(
         paste0(private$log, collapse="<br/>")
     },
     
+    
+    #' @description Prints the log
+    #' @param ... Arguments passed over to `cat()`
+    #' @return `invisible(self)`
     print = function(...) {
-      cat(paste0(private$log, collapse="\n"))
-      invisible(self)
+      cat(paste0(private$log, collapse="\n"), ...)
+      return(invisible(self))
+      
     }
   )
 )

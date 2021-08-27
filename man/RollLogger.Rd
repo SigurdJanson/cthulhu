@@ -2,10 +2,21 @@
 % Please edit documentation in R/RollLogger.R
 \name{RollLogger}
 \alias{RollLogger}
-\title{An abstract R6 class representing rolls with a 
-die of a specified number of sides.}
+\title{An abstract R6 class providing means to log strings in a 
+list of entries.}
 \description{
-A roller has a number of die sides and may support modify rolls.
+An abstract R6 class providing means to log strings in a 
+list of entries.
+
+An abstract R6 class providing means to log strings in a 
+list of entries.
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{Length}}{Current length of the log}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -21,6 +32,12 @@ A roller has a number of die sides and may support modify rolls.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+log The logged list
+
+
+maxEntries Maximum allowed entries
+
+
 Constructor
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RollLogger$new(MaxEntries = 25)}\if{html}{\out{</div>}}
@@ -29,12 +46,7 @@ Constructor
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dieSides}}{Dies sides}
-
-\item{\code{label}}{A label that could qualify as button label
-to initiate this roller.}
-
-\item{\code{modDieSides}}{Sides of a modifier die.}
+\item{\code{MaxEntries}}{Maximum allowed entries; default is 25}
 }
 \if{html}{\out{</div>}}
 }
@@ -46,28 +58,61 @@ to initiate this roller.}
 \if{html}{\out{<a id="method-Log"></a>}}
 \if{latex}{\out{\hypertarget{method-Log}{}}}
 \subsection{Method \code{Log()}}{
+Stores strings in the log.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RollLogger$Log(ToLog)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ToLog}}{a string that represents the last roll or any other event.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+`invisible(self)`
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-AsHtml"></a>}}
 \if{latex}{\out{\hypertarget{method-AsHtml}{}}}
 \subsection{Method \code{AsHtml()}}{
+Returns the log content as HTML string
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RollLogger$AsHtml(Reverse = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{Reverse}}{if `TRUE` the recent entries are shown on top.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+HTML output
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
+Prints the log
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{RollLogger$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Arguments passed over to `cat()`}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+`invisible(self)`
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
