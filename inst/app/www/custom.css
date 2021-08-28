@@ -37,3 +37,7 @@ footer {
     background-color: darkslategray !important;
 }
 
+/* roll is impossible */
+.impossible::before {
+    color:#8A0829;
+}

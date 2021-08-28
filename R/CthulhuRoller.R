@@ -40,7 +40,9 @@ CthulhuRoller <- R6Class(
     #' of a skill roll (i.e. 1d100 with modify rolls allowed).
     #' (readonly)
     IsSkillRoller = function() {
-      return(private$dieSides == 100 && private$modsAllowed && ModDieSides == 10)
+      return(private$dieSides == 100 && 
+               private$modsAllowed && 
+               private$modDieSides == 10)
     }
   ),
   private = list(
@@ -137,7 +139,8 @@ CthulhuRoller <- R6Class(
     #' @param value A roll result
     #' @return Smallest target value required for a hard success
     MaxHardSuccess = function(value) {
-      min(value * 2, dieSides-1)
+      #-min(value * 2, private$dieSides-1)
+      return(ifelse(value * 2 < private$dieSides, value * 2, NA))
     },
     #' @description MaxExtremeSuccess
     #' Determine the smallest target value required so that a
@@ -145,7 +148,7 @@ CthulhuRoller <- R6Class(
     #' @param value A roll result
     #' @return Smallest target value required for an extreme success
     MaxExtremeSuccess = function(value) {
-      min(value * 5, dieSides-1)
+      return(ifelse(value * 5 < private$dieSides, value * 5, NA))
     },
     #' @description What is the value for a critical failure?
     #' @param value A roll result

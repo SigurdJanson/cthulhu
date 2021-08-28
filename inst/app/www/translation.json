@@ -2,6 +2,8 @@
   "cultural_date_format": "%d-%m-%Y",
   "languages": ["en", "de"],
   "translation": [
+    {"en": "Bonus", "de": "Bonus"},
+    {"en": "Malus", "de": "Malus"},
     {"en": "Bonus Roll", "de": "Bonuswurf"},
     {"en": "Malus Roll", "de": "Maluswurf"},
     {
