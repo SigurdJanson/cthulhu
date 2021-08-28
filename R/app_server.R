@@ -39,26 +39,11 @@ app_server <- function( input, output, session ) {
   Roller3 <- CthulhuRoller$new(3, "D3")
   OnRoll3 <- mod_StandardRoll_server("Roll3", Roller3, i18n, Logger)
   
-  output$imgLogo <- renderImage({
-    filename <- normalizePath(
-      file.path('./inst/app/www', paste0("cthulhu_logo", '.svg')))
-    #print(filename)
-    # Return a list containing the file name and alt text
-    list(src = filename, 
-         contentType = "image/svg+xml",
-         height = "200px",
-         alt = paste("Cthulhu logo"))
-  }, deleteFile = FALSE, outputArgs = list(inline = TRUE))
   
   
-  
-  
-  ##OnNotifyRoll <- reactive({Logger$onModify})
-  #Logger$NotifyStateChange <- OnNotifyRoll
   
   output$RollLog <- renderUI({
     req(OnRoll100(), OnRoll10(), OnRoll6(), OnRoll4(), OnRoll3())
-    #-print(Logger$AsHtml())
     
     Style <- c("height:200px", 
                "background:#0C090A", "color:white",

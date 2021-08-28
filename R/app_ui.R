@@ -20,18 +20,13 @@ app_ui <- function(request) {
     # Your application UI logic 
     dashboardPage(skin = "black",
       dashboardHeader(title = "Cthulhu", disable = TRUE),
-      #, tags$li(imageOutput("imgLogo"), class = "dropdown")
       dashboardSidebar(disable = TRUE),
       dashboardBody(
         tags$head(
           tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
         ),
         useShinyjs(),
-        # tags$img(
-        #   src = "", 
-        #   #normalizePath(file.path('./inst/app/www', paste0("cthulhu_logo", '.svg'))),
-        #   style = 'position: absolute'
-        # ),
+        
         fluidPage(
           fluidRow(
             box(
@@ -40,9 +35,6 @@ app_ui <- function(request) {
               width = 4, height = "220px", #background = "black",
               mod_StandardRoll_ui("Roll100")
             ),
-            # box(width = 4, height = "220px",
-            #     #background = "black",
-            #     imageOutput("imgLogo"))
             box(title = i18n$t("D3"), solidHeader = TRUE, 
                 width = 2, height = "220px",
                 mod_StandardRoll_ui("Roll3")),
