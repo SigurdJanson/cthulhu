@@ -45,21 +45,27 @@ mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL)
     observeEvent(input$btnRoll, {
       RollResult(Roller$Roll())
       
-      Logger$Log(paste0(sprintf("Roll %s: %d", Roller$Label, RollResult())))
+      Logger$Log(paste0(sprintf(i18n$t("Roll %s: %d"), 
+                                i18n$t(Roller$Label), 
+                                RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
     # Modify last roll by bonus roll
     observeEvent(input$btnBonusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Bonus"]))
 
-      Logger$Log(paste0(sprintf("Modified %s: %d", Roller$Label, RollResult())))
+      Logger$Log(paste0(sprintf(i18n$t("Modified %s: %d"), 
+                                i18n$t(Roller$Label), 
+                                RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
     # Modify last roll by malus roll
     observeEvent(input$btnMalusRoll, {
       RollResult(Roller$AddModifier(RollResult(), Roller$ModifyType["Malus"]))
     
-      Logger$Log(paste0(sprintf("Modified %s: %d", Roller$Label, RollResult())))
+      Logger$Log(paste0(sprintf(i18n$t("Modified %s: %d"), 
+                                i18n$t(Roller$Label), 
+                                RollResult())))
       NotifyStateChange(NotifyStateChange()+1)
     })
     
@@ -72,6 +78,7 @@ mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL)
                               i18n$t(Roller$Label),
                               icon(myIcon))
       
+      # Shall modifier buttons be displayed?
       if (Roller$ModsAllowed) {
         if (RollResult() < 1 || RollResult() > Roller$DieSides || !isTruthy(RollResult())) {
           btnBonusRoll <- shinyjs::disabled(actionButton(ns("btnBonusRoll"), 
@@ -91,6 +98,7 @@ mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL)
       else
         btnBonusRoll <- btnMalusRoll <- NULL
       
+      # Add hard and extreme success
       if (Roller$IsSkillRoller) {
         value <- Roller$MaxHardSuccess(RollResult())
         if (isTruthy(value)) {

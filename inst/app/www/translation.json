@@ -11,8 +11,8 @@
       "de": "Sprache wählen"
     },
     {
-      "en": "Skills",
-      "de": "Fertigkeiten"
+      "en": "Skills (D100)",
+      "de": "Fertigkeiten (W100)"
     },
     {
       "en": "D3",
@@ -37,6 +37,14 @@
     {
       "en": "WWW Site with Core Rules",
       "de": "Webseite mit Basisregeln"
+    },
+    {
+      "en": "Roll %s: %d",
+      "de": "Wurf %s: %d"
+    },
+    {
+      "en": "Modified %s: %d",
+      "de": "Modifizierter %s: %d"
     }
   ]
 }

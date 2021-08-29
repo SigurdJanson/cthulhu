@@ -30,7 +30,7 @@ app_ui <- function(request) {
           usei18n(i18n),
           fluidRow(
             box(
-              title = i18n$t("Skills"), #sprintf("%s (%s)", i18n$t("Skill"), i18n$t("D100")), 
+              title = i18n$t("Skills (D100)"), #sprintf("%s (%s)", i18n$t("Skill"), i18n$t("D100")), 
               solidHeader = TRUE,
               width = 4, height = "220px", #background = "black",
               mod_StandardRoll_ui("Roll100")
