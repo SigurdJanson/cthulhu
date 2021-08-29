@@ -45,6 +45,22 @@
     {
       "en": "Modified %s: %d",
       "de": "Modifizierter %s: %d"
+    },
+    {
+      "en": "%s success if skill <= %d",
+      "de": "%s Erfolg, wenn Fertigkeit <= %d"
+    },
+    {
+      "en": "%s success not possible with this result",
+      "de": "%s Erfolg bei diesem Wurf unmöglich"
+    },
+    {
+      "en": "Hard",
+      "de": "Schwieriger"
+    },
+    {
+      "en": "Extreme",
+      "de": "Extremer"
     }
   ]
 }

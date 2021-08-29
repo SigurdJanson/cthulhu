@@ -25,6 +25,36 @@ mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL)
   if (!isTruthy(Roller) || !R6::is.R6(Roller)) 
     stop("Module needs a valid roller")
   
+  
+  GetSuccessIcon <- function(Roll, Show, Type = c("Hard", "Extreme")) {
+    if (!isTRUE(Show)) return(list())
+
+    if (Type == "Hard") {
+      value <- Roller$MaxHardSuccess(Roll)
+      SuccessIcon <- "check"
+    }
+    else if (Type == "Extreme") {
+      value <- Roller$MaxExtremeSuccess(Roll)    
+      SuccessIcon <- "check-double"
+    } else
+      return(list())
+    
+    if (isTruthy(value)) {
+      Success <- list(icon(SuccessIcon), span("<="), value)
+      Tooltip <- sprintf(i18n$t("%s success if skill <= %d"), i18n$t(Type), value)
+    } else {
+      Success <- list(icon(SuccessIcon, class="impossible"))
+      Tooltip <- sprintf(i18n$t("%s success not possible with this result"), i18n$t(Type))
+    }
+    
+    Success <- tags$div(
+      title=Tooltip, 
+      Success)
+
+    return(Success)
+  }
+
+
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
@@ -99,24 +129,8 @@ mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL)
         btnBonusRoll <- btnMalusRoll <- NULL
       
       # Add hard and extreme success
-      if (Roller$IsSkillRoller) {
-        value <- Roller$MaxHardSuccess(RollResult())
-        if (isTruthy(value)) {
-          HardSuccess <- list(icon("check"), span("<="), 
-                              Roller$MaxHardSuccess(RollResult()))
-        } else {
-          HardSuccess <- list(icon("check", class="impossible"))
-        }
-        value <- Roller$MaxExtremeSuccess(RollResult())
-        if (isTruthy(value))
-          ExtremeSuccess <- list(span("  ·  "), icon("check-double"), 
-                                 span("<="), value)
-        else
-          ExtremeSuccess <- list(span("  ·  "), icon("check-double", class="impossible"))
-      } else {
-        HardSuccess <- list()
-        ExtremeSuccess <- list()
-      }
+      HardSuccess <- GetSuccessIcon(RollResult(), Roller$IsSkillRoller, "Hard")
+      ExtremeSuccess <- GetSuccessIcon(RollResult(), Roller$IsSkillRoller, "Extreme")
 
       Result <- tagList(btnRoll, btnBonusRoll, btnMalusRoll, 
                         h1(RollResult()), 
