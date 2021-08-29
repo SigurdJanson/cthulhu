@@ -1,5 +1,5 @@
 #library(shinydashboard)
-
+library(shiny.i18n)
 #' The application User-Interface
 #' 
 #' @param request Internal parameter for `{shiny}`. 
@@ -11,7 +11,6 @@
 app_ui <- function(request) {
   # calling the translator sent as a golem option
   i18n <- golem::get_golem_options(which = "translator")
-  i18n$set_translation_language("en")
   
   tagList(
     # Leave this function for adding external resources
@@ -28,9 +27,10 @@ app_ui <- function(request) {
         useShinyjs(),
         
         fluidPage(
+          usei18n(i18n),
           fluidRow(
             box(
-              title = paste0(i18n$t("Skill"), " (", i18n$t("D100"), ")"), 
+              title = i18n$t("Skills"), #sprintf("%s (%s)", i18n$t("Skill"), i18n$t("D100")), 
               solidHeader = TRUE,
               width = 4, height = "220px", #background = "black",
               mod_StandardRoll_ui("Roll100")
@@ -69,8 +69,10 @@ app_ui <- function(request) {
                 inputId = "lang",
                 label = i18n$t("Select language"),
                 inline = TRUE,
-                choices = i18n$get_languages()
-              )            ),
+                choices = i18n$get_languages(),
+                selected = i18n$get_translation_language()
+              )
+            ),
             align = "center"
           )#footer
           

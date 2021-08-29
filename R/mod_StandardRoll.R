@@ -21,7 +21,7 @@ mod_StandardRoll_ui <- function(id){
 #' StandardRoll Server Functions
 #'
 #' @noRd 
-mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
+mod_StandardRoll_server <- function(id, Roller, i18n, ActiveLang, Logger = NULL){
   if (!isTruthy(Roller) || !R6::is.R6(Roller)) 
     stop("Module needs a valid roller")
   
@@ -65,6 +65,9 @@ mod_StandardRoll_server <- function(id, Roller, i18n, Logger = NULL){
     
     # Display the whole thing: buttons and roll result
     output$ModuleUI <- renderUI({
+      # Make sure that this output reacts to changes of ActiveLang
+      validate(need(ActiveLang(), "Language must be set"))
+      
       btnRoll <- actionButton(ns("btnRoll"), 
                               i18n$t(Roller$Label),
                               icon(myIcon))
