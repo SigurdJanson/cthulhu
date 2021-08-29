@@ -1,5 +1,7 @@
 #library(shinydashboard)
 library(shiny.i18n)
+library(shinyWidgets)
+
 #' The application User-Interface
 #' 
 #' @param request Internal parameter for `{shiny}`. 
@@ -61,16 +63,25 @@ app_ui <- function(request) {
           tags$footer(
             div(
               a(i18n$t("WWW Site with Core Rules"), 
-                target="_blank",
+                target="_blank", style="text-align:center;width:100%;",
                 href="https://www.chaotisch-neutral.de/spielmaterial/cthulhu/regelzusammenfassung-7-edition"),
             ),
             div(
-              radioButtons(
+              div(
+                i18n$t("Select language"), 
+                style="text-align:right;margin-right:1rem;"),
+              radioGroupButtons(
                 inputId = "lang",
-                label = i18n$t("Select language"),
-                inline = TRUE,
                 choices = i18n$get_languages(),
-                selected = i18n$get_translation_language()
+                size = "xs", status = "info",
+                width = sprintf("%drem", 5*length(i18n$get_languages())), 
+                justified = TRUE,
+                #individual = TRUE,
+                checkIcon = list(
+                  yes = tags$i(class = "fa fa-circle", 
+                               style = "color: green"),
+                  no = tags$i(class = "fa fa-circle-o", 
+                              style = "color: green"))
               )
             ),
             align = "center"
