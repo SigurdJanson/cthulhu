@@ -67,10 +67,11 @@ CthulhuRoller <- R6Class(
     #' @param dieSides Dies sides
     #' @param label A label that could qualify as button label
     #' to initiate this roller.
-    #' @param modDieSides Sides of a modifier die.
+    #' @param modDieSides Sides of a modifier die 
+    #' (1 < `modDieSides` < `dieSides`/2).
     #' @return `invisible(self)`
     initialize = function(dieSides = NA, label = NA, modDieSides = NA) {
-      if (is.na(dieSides) || !is.numeric(dieSides)) 
+      if (is.na(dieSides) || !is.numeric(dieSides))
         stop("Number of die sides is missing")
       
       if (dieSides > 1)
@@ -80,6 +81,7 @@ CthulhuRoller <- R6Class(
       
       self$Label <- ifelse(is.character(label), label, paste0("1d", dieSides))
       if (is.numeric(modDieSides) && modDieSides > 1) {
+        if (modDieSides >= dieSides) stop("Modifier cannot be larger than half of the die sides")
         private$modsAllowed <- TRUE
         private$modDieSides <- modDieSides
       } else {

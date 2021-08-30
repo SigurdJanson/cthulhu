@@ -81,3 +81,65 @@ test_that("modified malus rolls are within range", {
     }
   }
 })
+
+
+
+test_that("skill roller is correctly identified", {
+  roller <- CthulhuRoller$new(100, "Test", 10)
+  
+  expect_true(roller$IsSkillRoller)
+})
+
+test_that("skill roller is denied when die sides != 100", {
+  TestDice <- c(2, 50, 99, 101, 1000)
+  Modifiers <- c(1, 10, 9,  10, 10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    expect_false(roller$IsSkillRoller)
+  }
+})
+
+
+
+
+test_that("MaxHardSuccess works", {
+  TestDice  <- c(4, 10, 12, 100, 1000)
+  Modifiers <- c(1,  2,  2,  10,   10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    
+    RollValues <- c(1, (TestDice[i]-2) %/% 2, TestDice[i] %/% 2)
+    Successes  <- RollValues * 2
+    Successes[Successes > TestDice[i]-1]  <- NA
+    
+    for (r in 1:length(RollValues))
+      if (!is.na(Successes[r]))
+        expect_identical(roller$MaxHardSuccess(RollValues[r]), Successes[r])
+      else
+        expect_equal(roller$MaxHardSuccess(RollValues[r]), NA)
+  }
+})
+
+
+test_that("MaxExtremeSuccess works", {
+  TestDice  <- c(4, 10, 12, 100, 1000)
+  Modifiers <- c(1,  2,  2,  10,   10)
+  
+  for(i in 1:length(TestDice)) {
+    roller <- CthulhuRoller$new(TestDice[i], "Test", Modifiers[i])
+    
+    RollValues <- c(1, (TestDice[i]-5) %/% 5, TestDice[i] %/% 5)
+    Successes  <- RollValues * 5
+    Successes[Successes > TestDice[i]-1]  <- NA
+    
+    for (r in 1:length(RollValues))
+      if (!is.na(Successes[r]))
+        expect_identical(roller$MaxExtremeSuccess(RollValues[r]), Successes[r])
+      else
+        expect_equal(roller$MaxExtremeSuccess(RollValues[r]), NA)
+  }
+})
+
+
