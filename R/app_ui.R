@@ -7,7 +7,7 @@ library(shinyWidgets)
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @importFrom shinydashboard dashboardPage dashboardHeader dashboardSidebar dashboardBody
-#' box tabBox
+#' box
 #' @importFrom shinyjs useShinyjs
 #' @importFrom shiny.i18n usei18n
 #' @importFrom shinyWidgets radioGroupButtons
