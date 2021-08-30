@@ -24,7 +24,7 @@ golem::fill_desc(
   pkg_description = "Supports dice rolls in Cthulhu role playing sessions.", # The Description of the package containing the App 
   author_first_name = "Jan", # Your First Name
   author_last_name = "Seifert", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
+  author_email = "github@sigurdjanson.anonaddy.com", # Your Email
   repo_url = "https://github.com/SigurdJanson/cthulhu" # The URL of the GitHub Repo (optional) 
 )     
 
