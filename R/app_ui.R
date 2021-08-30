@@ -1,4 +1,3 @@
-#library(shinydashboard)
 library(shiny.i18n)
 library(shinyWidgets)
 
@@ -9,6 +8,9 @@ library(shinyWidgets)
 #' @import shiny
 #' @importFrom shinydashboard dashboardPage dashboardHeader dashboardSidebar dashboardBody
 #' box tabBox
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shiny.i18n usei18n
+#' @importFrom shinyWidgets radioGroupButtons
 #' @noRd
 app_ui <- function(request) {
   # calling the translator sent as a golem option

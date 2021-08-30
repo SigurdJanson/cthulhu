@@ -91,7 +91,8 @@ Constructor
 \item{\code{label}}{A label that could qualify as button label
 to initiate this roller.}
 
-\item{\code{modDieSides}}{Sides of a modifier die.}
+\item{\code{modDieSides}}{Sides of a modifier die 
+(1 < `modDieSides` < `dieSides`/2).}
 }
 \if{html}{\out{</div>}}
 }
