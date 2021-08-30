@@ -21,16 +21,17 @@ test_that("adding a string increases log length", {
       i)
 })
 test_that("exceeding max log length does not increases length, anymore", {
-  log <- RollLogger$new(10L)
+  MaxSize <- 10L
+  log <- RollLogger$new(MaxSize)
   
-  for (i in 1L:10L)
+  for (i in 1L:MaxSize)
     expect_identical(
       log$Log("You're pretty when I'm drunk")$Length, 
       i)
   for (i in 1L:10L)
     expect_identical(
       log$Log("You're pretty when I'm drunk")$Length, 
-      10L)
+      MaxSize)
 })
 
 
