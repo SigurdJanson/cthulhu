@@ -9,8 +9,10 @@ RollLogger <- R6Class(
     
     #' @field Length Current length of the log
     Length = function(value) {
-      if (!is.null(value)) stop("Length cannot be set")
-      return(length(log))
+      if (missing(value))
+        return(length(private$log))
+      else
+        stop("Length cannot be set")
     }
   ),
   private = list( ##
